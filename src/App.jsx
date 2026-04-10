@@ -7,7 +7,7 @@ import MovieCard from "./MovieCard.jsx";
 import { useEffect, useState } from "react";
 import SearchPage from "./component/SearchPage.jsx";
 import MovieDetail from "./Moviedetail.jsx";
-
+import LogIn from "./pages/Login.jsx";
 function MovieList() {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
@@ -44,6 +44,7 @@ export default function App() {
 
         {/* 레이아웃 밖으로 독립시킨 회원가입 페이지! */}
         <Route path="/singup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
       </Route>
     </Routes>
   );

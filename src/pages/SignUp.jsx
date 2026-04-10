@@ -8,27 +8,44 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-    // 기존에 있는 유저정보 가져오기
-    const isDuplicate = existingUsers.some((user) => user.id === id);
-    if (isDuplicate) {
-      alert("중복된 아이디입니다");
-      return;
+
+    try {
+      // 1. 유저 정보 가져오기 (중복 체크용)
+      const res = await fetch("http://localhost:4000/users");
+      const users = await res.json();
+
+      const isDuplicate = users.some((user) => user.userId === id);
+      if (isDuplicate) {
+        alert("중복된 아이디입니다!");
+        return;
+      }
+
+      // 2. 서버에 저장 (POST)
+      const newUser = { userID: id, pw: pw };
+      const postRes = await fetch("http://localhost:4000/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      });
+
+      if (postRes.ok) {
+        alert(
+          `${id}님, 회원가입이 완료되었습니다! 확인을 누르면 로그인 페이지로 이동합니다.`,
+        );
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("서버 통신 에러:", error);
+      alert("서버랑 연결이 되지않습니다");
     }
-
-    const newUser = { id, pw }; // 실시간으로 쌓인 데이터
-    const updatedUsers = [...existingUsers, newUser]; //기존데이터에 실시간으로쌓인 새로운 유저 데이터 추가한 배열
-
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    setIsModalOpen(true);
   };
 
   return (
     <div>
       <h2>회원가입</h2>
-      <form onSubmit={handleSignUp}>
+      <div>
         <input
           type="text"
           placeholder="아이디"
@@ -41,13 +58,15 @@ function SignUp() {
           value={pw}
           onChange={(e) => setPw(e.target.value)}
         />
-        <button>가입하기 </button>
-      </form>
+        <button type="button" onClick={handleSignUp}>
+          가입하기{" "}
+        </button>
+      </div>
 
       {isModalOpen && (
         <Modal
           title="가입완료"
-          contents={`${id}님 환영합니다. 로그인 페이지로 이동하겠습니다.`}
+          contents={`${id}님 환영합니다.`}
           onConfirm={() => navigate("/login")}
           onCancel={() => setIsModalOpen(false)}
         />

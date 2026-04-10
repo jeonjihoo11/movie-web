@@ -24,6 +24,7 @@ function NavBar() {
       <Link to="/">Home</Link>
       <Link to="/about">About</Link>
       <Link to="/singup">회원가입</Link>
+      <Link to="/login">로그인</Link>
       <form onSubmit={handleSearch}>
         <input
           type="text"
