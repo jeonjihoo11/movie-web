@@ -10,7 +10,7 @@ function LogIn() {
     const users = await res.json();
 
     const user = users.find((u) => u.userID === logid && u.pw === logpw);
-
+    localStorage.setItem("user", JSON.stringify(users));
     if (user) {
       alert("로그인 성공");
     } else {

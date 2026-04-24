@@ -1,142 +1,102 @@
 {
   "users": [
     {
-      "id": "e9MCKRPFOuc",
-      "pw": "ㅇㅎ니ㅓ"
-    },
-    {
-      "id": "V73M0GRWID0",
-      "pw": "ㅗ"
-    },
-    {
-      "id": "4x0eS9x2GpQ",
-      "pw": "ㅎ"
-    },
-    {
-      "id": "euLg1UhUvJY",
-      "pw": "ㅇ"
-    },
-    {
-      "id": "JG0Qrvr5XdU",
-      "pw": "ㄹㄹ"
-    },
-    {
-      "id": "do5MoOWvqqE",
-      "pw": "ㅇㄴㅎ"
-    },
-    {
-      "id": "wtzO4zdxLw8",
-      "pw": "th"
-    },
-    {
-      "id": "ctSIzySc84I",
-      "pw": "g"
-    },
-    {
-      "id": "hDe3725FiFE",
-      "pw": "sd"
-    },
-    {
-      "id": "x7ZN0HpA1iA",
-      "pw": "f"
-    },
-    {
-      "id": "24aYef66Wsc",
-      "pw": "d"
-    },
-    {
-      "id": "8yFl52EP9ms",
-      "pw": "dsg"
-    },
-    {
-      "id": "XBP-vr2T7rg",
-      "pw": "ㄷ"
-    },
-    {
-      "id": "q0RdwnJijt8",
-      "pw": "ㄷ곧고"
-    },
-    {
-      "id": "-7WC9vA9LFc",
-      "pw": "ㄷㄹㄷㄹ"
-    },
-    {
-      "id": "Eei-TIIOcRM",
-      "pw": "ㄷㅈㅎㄷ"
-    },
-    {
-      "id": "eHRosCtq6fI",
-      "pw": "ㅇㄴㅎㄴ"
-    },
-    {
-      "id": "0q_fTk-heds",
-      "pw": "ㄴㅎ"
-    },
-    {
-      "id": "_9fNITUhQkU",
-      "pw": "ㅎ"
-    },
-    {
-      "id": "tV_dfOzVyEA",
-      "pw": "ㅎ"
-    },
-    {
-      "id": "Vk4M21yRDm4",
-      "pw": "ㄷㅎ"
-    },
-    {
-      "id": "iuMCgVLEVYQ",
-      "pw": "f"
-    },
-    {
-      "id": "vhYEsAj_O9k",
-      "pw": "ds"
-    },
-    {
-      "id": "pqAxA_Bi070",
-      "pw": "wgw"
-    },
-    {
-      "id": "uNt7uwpRrh4",
-      "pw": "g"
-    },
-    {
-      "id": "iMEJIHsT8l8",
-      "pw": "ef"
-    },
-    {
-      "id": "V8Ycm-hVEew",
-      "pw": "gs"
-    },
-    {
-      "id": "NSvB0mFZebo",
-      "pw": "ewf"
-    },
-    {
-      "id": "miZ9yqIBzpo",
-      "pw": "ef"
-    },
-    {
-      "id": "xCqlyB3lc6o",
-      "pw": "ㄹ"
-    },
-    {
-      "id": "LO6GoxBJ0gA",
-      "pw": "전지후"
-    },
-    {
-      "id": "tXee4B8H_ws",
-      "pw": "wjstndus"
-    },
-    {
-      "userID": "전수연",
+      "userID": "전지후",
       "pw": "전지후",
-      "id": "h2haGcSvv-g"
+      "id": "Y17t4yBgYy8"
     },
     {
-      "userID": "강건우",
+      "userID": "전지후",
       "pw": "전지후",
-      "id": "HorD5oHJDX8"
+      "id": "X6IZ6SFyK0k"
+    },
+    {
+      "userID": "전지후",
+      "pw": "전지후",
+      "id": "CEvtRdu1nAU"
+    }
+  ],
+  "favorites": [
+    {
+      "movieId": 1226863,
+      "title": "슈퍼 마리오 갤럭시",
+      "poster_path": "/knaXOBDBecVBWZVup3zXaOoy23v.jpg",
+      "id": "6QDBJ-_Njq4"
+    },
+    {
+      "movieId": 1226863,
+      "title": "슈퍼 마리오 갤럭시",
+      "poster_path": "/knaXOBDBecVBWZVup3zXaOoy23v.jpg",
+      "id": "VHc2ORJOnRs"
+    },
+    {
+      "movieId": 980431,
+      "title": "아앙: 더 라스트 에어벤더",
+      "poster_path": "/29Jdsak3SrwGds5k1t43kH6Khed.jpg",
+      "id": "gocoJFZWxW8"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 1523145,
+      "title": "Твоё сердце будет разбито",
+      "poster_path": "/iGpMm603GUKH2SiXB2S5m4sZ17t.jpg",
+      "id": "MBL9OCqhmU0"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 1198994,
+      "title": "직장상사 길들이기",
+      "poster_path": "/kpOHAiCiIBa0yPtOqSp99NxhwUF.jpg",
+      "id": "ssIVv3T6O1k"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 1198994,
+      "title": "직장상사 길들이기",
+      "poster_path": "/kpOHAiCiIBa0yPtOqSp99NxhwUF.jpg",
+      "id": "GnnAPfzKXOs"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 1198994,
+      "title": "직장상사 길들이기",
+      "poster_path": "/kpOHAiCiIBa0yPtOqSp99NxhwUF.jpg",
+      "id": "ZD-YQAyihW4"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 1198994,
+      "title": "직장상사 길들이기",
+      "poster_path": "/kpOHAiCiIBa0yPtOqSp99NxhwUF.jpg",
+      "id": "9I6rWFIIJMg"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 980431,
+      "title": "아앙: 더 라스트 에어벤더",
+      "poster_path": "/29Jdsak3SrwGds5k1t43kH6Khed.jpg",
+      "id": "LxVm2OQ5BPU"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 83533,
+      "title": "아바타: 불과 재",
+      "poster_path": "/l18o0AK18KS118tWeROOKYkF0ng.jpg",
+      "id": "Z5bbTVZRFy0"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 1226863,
+      "title": "슈퍼 마리오 갤럭시",
+      "poster_path": "/knaXOBDBecVBWZVup3zXaOoy23v.jpg",
+      "id": "2fWAZViXrpM"
+    },
+    {
+      "userId": "fTwpjXC3Hnc",
+      "movieId": 687163,
+      "title": "프로젝트 헤일메리",
+      "poster_path": "/qqGpVVZk2KD1lAvccgTU4Z6nh1H.jpg",
+      "id": "x6kByVlfQqk"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

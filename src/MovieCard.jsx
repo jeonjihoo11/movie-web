@@ -6,7 +6,7 @@ function MovieCard({ movie, onClick }) {
   return (
     <div className="movie-card" onClick={onClick}>
       <img src={baseUrl + movie.poster_path} alt={movie.title} />
-      <h3>{movie.title}</h3>
+      <h3>{movie.original_title}</h3>
       <p>{movie.vote_average}</p>
     </div>
   );
