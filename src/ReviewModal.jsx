@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import yellowStar from "./yellowStar.png"
+import grayStar from "./grayStar.png"
 
 function ReviewModal({
   reviewOpen,
@@ -9,6 +11,7 @@ function ReviewModal({
 }) {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(0);
+  const [clicked, setClicked] = useState([false, false, false, false, false])
 
   // 모달이 열릴 때: 수정 모드면 기존 글자를 채우고, 아니면 비움
   useEffect(() => {
@@ -18,6 +21,19 @@ function ReviewModal({
       setText("");
     }
   }, [selectedReview]);
+
+
+  const array = [0,1,2,3,4]
+
+  const starScore = (index) => {
+    const star = [...clicked]
+    for(let i = 0; i < 5; i++) {
+        star[i] = i <= index ? true : false
+    }
+    setClicked(star)
+  }
+  const clickedStarNum = clicked.filter(element => true === element).length
+
 
   const handleSubmit = () => {
     if (!text || text.trim() === "") {
@@ -42,6 +58,16 @@ function ReviewModal({
         <h2 className="text-xl font-bold mb-4">
           {selectedReview ? "리뷰 수정하기" : "리뷰 작성하기"}
         </h2>
+        {array.map((index) =>(
+            <img
+            key={index}
+            onClick={() =>starScore(index)}
+            src={clicked[index] ? yellowStar : grayStar}
+            alt="staricon" />
+        ))}
+
+
+
         <textarea
           className="w-full h-40 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none resize-none"
           value={text}
