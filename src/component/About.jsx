@@ -25,7 +25,19 @@ function About() {
 
   if (!allUsers)
     return <div className="p-10 text-center">로그인 해주세요! 🔒</div>;
-
+  const deleteFav = (id) => {
+    fetch(`http://localhost:4000/favorites/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          const updated = favorites.filter((item) => item.id !== id);
+          setFavorites(updated);
+          alert("찜목록에서 삭제");
+        }
+      })
+      .catch((err) => console.log("에러", err));
+  };
   return (
     <div className="p-8">
       <h1 className="text-3xl font-black mb-6">내가 찜한 영화 🎬</h1>
@@ -43,6 +55,12 @@ function About() {
               />
               <div className="p-4">
                 <h3 className="font-bold truncate">{movie.title}</h3>
+                <button
+                  className="px-3 py-1 text-xs border border-zinc-700 text-zinc-400 rounded hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300"
+                  onClick={() => deleteFav(movie.id)}
+                >
+                  삭제하기
+                </button>
               </div>
             </div>
           ))

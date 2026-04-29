@@ -13,15 +13,18 @@ function ReviewModal({
   // 모달이 열릴 때: 수정 모드면 기존 글자를 채우고, 아니면 비움
   useEffect(() => {
     if (selectedReview) {
-      setText(selectedReview.content);
+      setText(selectedReview.comment);
     } else {
       setText("");
     }
   }, [selectedReview]);
 
   const handleSubmit = () => {
-    if (text.trim() === "") return;
-
+    if (!text || text.trim() === "") {
+      console.log("글자가 없음");
+      return;
+    }
+    console.log("1보낼 글자 ", text);
     if (selectedReview) {
       // 수정 모드일 때
       editReview(text);
