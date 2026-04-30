@@ -6,7 +6,7 @@ import Layout from "./component/LayOut.jsx";
 import MovieCard from "./MovieCard.jsx";
 import { useEffect, useState } from "react";
 import SearchPage from "./component/SearchPage.jsx";
-import MovieDetail from "./Moviedetail.jsx";
+import MovieDetail from "./MovieDetail.jsx";
 import LogIn from "./pages/Login.jsx";
 import About from "./component/About.jsx";
 function MovieList() {
