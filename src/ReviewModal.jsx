@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import yellowStar from "./yellowStar.png"
-import grayStar from "./grayStar.png"
+import yellowStar from "./yellowStar.png";
+import grayStar from "./grayStar.png";
 
 function ReviewModal({
   reviewOpen,
@@ -9,9 +9,10 @@ function ReviewModal({
   userId,
   selectedReview,
 }) {
+  console.log("모달이 받은 userId:", userId);
   const [text, setText] = useState("");
   const [rating, setRating] = useState(0);
-  const [clicked, setClicked] = useState([false, false, false, false, false])
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
 
   // 모달이 열릴 때: 수정 모드면 기존 글자를 채우고, 아니면 비움
   useEffect(() => {
@@ -19,21 +20,20 @@ function ReviewModal({
       setText(selectedReview.comment);
     } else {
       setText("");
+      setClicked([false, false, false, false, false]);
     }
   }, [selectedReview]);
 
-
-  const array = [0,1,2,3,4]
+  const array = [0, 1, 2, 3, 4];
 
   const starScore = (index) => {
-    const star = [...clicked]
-    for(let i = 0; i < 5; i++) {
-        star[i] = i <= index ? true : false
+    const star = [...clicked];
+    for (let i = 0; i < 5; i++) {
+      star[i] = i <= index ? true : false;
     }
-    setClicked(star)
-  }
-  const clickedStarNum = clicked.filter(element => true === element).length
-
+    setClicked(star);
+  };
+  const clickedStarNum = clicked.filter((element) => true === element).length;
 
   const handleSubmit = () => {
     if (!text || text.trim() === "") {
@@ -43,10 +43,10 @@ function ReviewModal({
     console.log("1보낼 글자 ", text);
     if (selectedReview) {
       // 수정 모드일 때
-      editReview(text);
+      editReview(text, clickedStarNum);
     } else {
       // 추가 모드일 때
-      addReviewOpen(text, rating, userId);
+      addReviewOpen(text, clickedStarNum, userId);
     }
 
     reviewOpen(); // 모달 닫기
@@ -58,15 +58,23 @@ function ReviewModal({
         <h2 className="text-xl font-bold mb-4">
           {selectedReview ? "리뷰 수정하기" : "리뷰 작성하기"}
         </h2>
-        {array.map((index) =>(
-            <img
-            key={index}
-            onClick={() =>starScore(index)}
-            src={clicked[index] ? yellowStar : grayStar}
-            alt="staricon" />
-        ))}
-
-
+        <div className="flex item-center justify-between mb-4 px-1">
+          <span className="font-bold text-gray-600 text-sm">
+            {" "}
+            작성자:{userId}
+          </span>
+          <div className="flex gap-1">
+            {array.map((index) => (
+              <img
+                key={index}
+                className="w-5 h-5 cursor-pointer hover:scale-120 transition-transform"
+                onClick={() => starScore(index)}
+                src={clicked[index] ? yellowStar : grayStar}
+                alt="staricon"
+              />
+            ))}
+          </div>
+        </div>
 
         <textarea
           className="w-full h-40 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none resize-none"

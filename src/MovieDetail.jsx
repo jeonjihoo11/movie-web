@@ -80,11 +80,11 @@ function MovieDetail() {
   };
 
   // 리뷰 추가 시 기록
-  const addReview = (text, rating, userId) => {
+  const addReview = (text, clickedStarNum, userId) => {
     const newReview = {
       id: Date.now(),
       comment: text,
-      rating: rating,
+      clickedStarNum: clickedStarNum,
       userId: userId,
       data: new Date().toLocaleDateString(),
     };
@@ -94,7 +94,7 @@ function MovieDetail() {
     localStorage.setItem(`reviews_${id}`, JSON.stringify(updated));
   };
   //리뷰수정을 완료하는
-  const handleUpdate = (newText) => {
+  const handleUpdate = (newText, newStar) => {
     console.log("2. 부모가 받은 글자", newText);
     console.log("3.수정할 놈의 인덱스", selectedReview?.index);
 
@@ -105,6 +105,7 @@ function MovieDetail() {
     updatedReview[selectedReview.index] = {
       ...updatedReview[selectedReview.index],
       comment: newText,
+      clickedStarNum: newStar,
     };
 
     setReviews(updatedReview);
@@ -184,10 +185,13 @@ function MovieDetail() {
               >
                 <div className="flex justify-between items-center">
                   <p className="font-bold text-zinc-400">작성자:{r.userId}</p>
-                  <p className="text-yellow-500">별점:{r.score}</p>
+                  <p className="text-yellow-500">
+                    별점:{r.clickedStarNum}
+                  </p>{" "}
+                  {/* 리뷰에 저장되는 별점*/}
                 </div>
                 <p className="text-white text-lg leading-relaxed">
-                  내용:{r.comment}
+                  {r.comment}
                 </p>{" "}
                 {/* 리뷰 내용*/}
                 <div className="flex gap-3 justify-end mt-2">
@@ -216,10 +220,18 @@ function MovieDetail() {
           addReviewOpen={addReview}
           editReview={handleUpdate}
           selectedReview={selectedReview}
-          userId={
-            JSON.parse(localStorage.getItem("user"))?.id ||
-            JSON.parse(localStorage.getItem("user"))?.slice(-1)[0]?.id
-          }
+          userId={(() => {
+            const userData = localStorage.getItem("user");
+            if (!userData) return "익명";
+
+            const parsed = JSON.parse(userData);
+
+            const user = Array.isArray(parsed)
+              ? parsed[parsed.length - 1]
+              : parsed;
+
+            return user?.userID || "익명";
+          })()}
         />
       )}
     </div>
