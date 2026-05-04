@@ -43,24 +43,42 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <h2>회원가입</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="아이디"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="비밀번호"
-          value={pw}
-          onChange={(e) => setPw(e.target.value)}
-        />
-        <button type="button" onClick={handleSignUp}>
-          가입하기{" "}
-        </button>
+    <div className=" min-h-screen bg-black flex flex-col justify-center items-center px-4 font-sans text-center ">
+      <div className="mb-8">
+        <h2 className="text-4xl font-bold text-white mb-2">회원가입</h2>
+        <p className="text-zinc-400">회원가입 해주세요</p>
+      </div>
+      <div className="w-full max-w-md bg-zinc-900/50 p-10 rounded-3xl border border-zinc-800 shadow-2xl">
+        <form className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2 text-left">
+            <label className="text-sm font-semibold texy-zinc-300 ml-1">
+              아이디
+            </label>
+            <input
+              className="bg-zinc-800 text-white px-4 py-3 rounded-xl border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-zinc-500"
+              type="text"
+              placeholder="아이디"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col text-left">
+            <input
+              className="bg-zinc-800 text-white px-4 py-3 rounded-xl border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-zinc-500"
+              type="text"
+              placeholder="비밀번호"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+            />
+          </div>
+          <button
+            className="w-full bg-white text-black font-bold py-4 rounded-xl mt-4 hover:bg-zinc-200 transition-colors active:scale-[0.98]"
+            type="button"
+            onClick={handleSignUp}
+          >
+            가입하기{" "}
+          </button>
+        </form>
       </div>
 
       {isModalOpen && (

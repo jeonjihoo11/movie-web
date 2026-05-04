@@ -11,20 +11,14 @@ function About() {
       : allUsers;
 
     if (currentUser && currentUser.id) {
-      console.log("내 아이디로 찜 목록 찾는 중:", currentUser.id);
-
-      // ?userId=아이디 를 붙여서 내 것만 쏙 빼오기
       fetch(`http://localhost:4000/favorites?userId=${currentUser.id}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log("불러온 내 찜 영화들:", data);
           setFavorites(data);
         });
     }
   }, []);
 
-  if (!allUsers)
-    return <div className="p-10 text-center">로그인 해주세요! 🔒</div>;
   const deleteFav = (id) => {
     fetch(`http://localhost:4000/favorites/${id}`, {
       method: "DELETE",
@@ -33,39 +27,62 @@ function About() {
         if (res.ok) {
           const updated = favorites.filter((item) => item.id !== id);
           setFavorites(updated);
-          alert("찜목록에서 삭제");
         }
       })
       .catch((err) => console.log("에러", err));
   };
+
+  if (!allUsers)
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center font-sans">
+        <div className="text-center bg-zinc-900 p-10 rounded-3xl border border-zinc-800">
+          <p className="text-2xl font-bold mb-4">로그인 해주세요! 🔒</p>
+          <p className="text-zinc-500">찜 목록을 확인하려면 로그인이 필요해.</p>
+        </div>
+      </div>
+    );
+
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-black mb-6">내가 찜한 영화 🎬</h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div className="min-h-screen bg-black text-white p-8 md:p-16 font-sans">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-black mb-10 tracking-tighter">
+          내가 찜한 영화 🎬
+        </h1>
+
         {favorites.length > 0 ? (
-          favorites.map((movie) => (
-            <div
-              key={movie.id}
-              className="border rounded-xl overflow-hidden shadow-lg"
-            >
-              <img
-                src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-                alt={movie.title}
-                className="w-full h-72 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-bold truncate">{movie.title}</h3>
-                <button
-                  className="px-3 py-1 text-xs border border-zinc-700 text-zinc-400 rounded hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300"
-                  onClick={() => deleteFav(movie.id)}
-                >
-                  삭제하기
-                </button>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {favorites.map((movie) => (
+              <div
+                key={movie.id}
+                className="group relative bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-500 transition-all duration-300"
+              >
+                <div className="overflow-hidden aspect-[2/3]">
+                  <img
+                    src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
+                    alt={movie.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                {/* 하단 정보창 */}
+                <div className="p-5">
+                  <h3 className="font-bold text-lg truncate mb-3">
+                    {movie.title}
+                  </h3>
+                  <button
+                    className="w-full py-2 text-sm font-semibold bg-zinc-800 text-zinc-400 rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-300"
+                    onClick={() => deleteFav(movie.id)}
+                  >
+                    삭제하기
+                  </button>
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         ) : (
-          <p className="text-gray-500">찜한 영화가 없습니다</p>
+          <div className="text-center py-20 bg-zinc-900/30 rounded-3xl border border-zinc-800 border-dashed">
+            <p className="text-zinc-500 text-xl">찜한 영화가 없습니다.</p>
+          </div>
         )}
       </div>
     </div>

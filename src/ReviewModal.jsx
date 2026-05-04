@@ -77,7 +77,7 @@ function ReviewModal({
         </div>
 
         <textarea
-          className="w-full h-40 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none resize-none"
+          className="w-full h-40 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none resize-none text-black"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="리뷰를 입력해주세요..."

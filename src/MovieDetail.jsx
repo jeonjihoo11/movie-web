@@ -133,87 +133,99 @@ function MovieDetail() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-10">
-      {" "}
-      {/* 전체를 감싸는부분*/}
-      {/* 왼쪽 포스터*/}
-      <img
-        className="rounded-lg shadow-xl"
-        src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-        alt={movie.title}
-      />{" "}
-      {/* 오른쪽 정보창*/}
-      <div className=" flex flex-1 flex-col gap-10">
-        <h1 className="text-4xl font-bold">{movie.title}</h1>
-        <p className="text-gray-400">{movie.overview}</p>
-        <p className="text-gray-400">{movie.vote_average?.toFixed(1)}</p>
-
-        <div className="flex gap-10">
-          {" "}
-          {/* 버튼들*/} {/* 버튼 css*/}
-          <button
-            type="button"
-            onClick={handleFavorite}
-            className="flex-1 bg-red-600 py-3 rounded"
-          >
-            찜하기
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsModalOpen(true);
-              setIsEditMode(null);
-              setSelectedReview(null);
-            }}
-            className="flex-1 bg-gray-600 py-3 rounded"
-          >
-            리뷰 남기기
-          </button>
+    <div className="min-h-screen bg-black text-white p-6 md:p-16">
+      {/* 1. 상단 섹션 (포스터 + 정보창) */}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 mb-20">
+        {/* 왼쪽 포스터 */}
+        <div className="w-full md:w-[400px] flex-shrink-0">
+          <img
+            className="w-full rounded-2xl shadow-2xl border border-zinc-800"
+            src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
+            alt={movie.title}
+          />
         </div>
 
-        <hr className="border-zinc-800 mb-10" />
-
-        {/* 하단 리뷰 섹션*/}
-        <section className="max-w-5xl">
-          <h2 className="text-2xl font-bold mb-8">관람평</h2>
-          <div className="flex flex-col gap-4">
-            {/* 리뷰리스트 렌더링 란 */}
-            {reviews.map((r, i) => (
-              <div
-                key={i}
-                className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 flex flex-col gap-3"
-              >
-                <div className="flex justify-between items-center">
-                  <p className="font-bold text-zinc-400">작성자:{r.userId}</p>
-                  <p className="text-yellow-500">
-                    별점:{r.clickedStarNum}
-                  </p>{" "}
-                  {/* 리뷰에 저장되는 별점*/}
-                </div>
-                <p className="text-white text-lg leading-relaxed">
-                  {r.comment}
-                </p>{" "}
-                {/* 리뷰 내용*/}
-                <div className="flex gap-3 justify-end mt-2">
-                  <button
-                    onClick={() => deleteReview(i)}
-                    className="text-sm text-zinc-500 hover:text-white"
-                  >
-                    삭제
-                  </button>
-                  <button
-                    onClick={() => editReview(i)}
-                    className="text-sm text-zinc-500 hover:text-red-500"
-                  >
-                    수정
-                  </button>
-                </div>
-              </div>
-            ))}
+        {/* 오른쪽 정보창 */}
+        <div className="flex flex-1 flex-col gap-8">
+          <div>
+            <h1 className="text-5xl md:text-6xl font-black mb-4 tracking-tighter">
+              {movie.title}
+            </h1>
+            <div className="flex items-center gap-2 text-2xl font-bold">
+              <span className="text-yellow-400">★</span>
+              <p className="text-gray-200">{movie.vote_average?.toFixed(1)}</p>
+            </div>
           </div>
-        </section>
+
+          <div className="bg-zinc-900/40 p-8 rounded-3xl border border-zinc-800">
+            <h3 className="text-xl font-bold mb-4 text-zinc-300">줄거리</h3>
+            <p className="text-gray-400 text-lg leading-relaxed italic mb-8">
+              {movie.overview}
+            </p>
+
+            {/* 버튼들 - 줄거리 박스 안쪽 하단에 배치 */}
+            <div className="flex gap-4 mt-auto">
+              <button
+                type="button"
+                onClick={handleFavorite}
+                className="flex-1 bg-white hover:bg-sky-100 text-black font-bold py-4 rounded-xl transition-all"
+              >
+                찜하기
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setIsEditMode(null);
+                  setSelectedReview(null);
+                }}
+                className="flex-1 bg-white hover:bg-sky-100 text-black font-bold py-4 rounded-xl transition-all"
+              >
+                리뷰 남기기
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      {/* 모달 컴포넌트 모달이 오픈되면 리뷰모달이 실행되고 addreview가 실행된다 */}
+
+      <hr className="border-zinc-800 mb-16 max-w-7xl mx-auto" />
+
+      {/* 2. 하단 리뷰 섹션 (이제 상단 flex 밖이라 아래로 깔림) */}
+      <section className="max-w-7xl mx-auto pt-4">
+        <h2 className="text-3xl font-bold mb-10">관람평</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {reviews.map((r, i) => (
+            <div
+              key={i}
+              className="bg-zinc-900/60 p-8 rounded-2xl border border-zinc-800 flex flex-col gap-4 hover:border-zinc-600 transition-all"
+            >
+              <div className="flex justify-between items-center">
+                <p className="font-bold text-zinc-300">작성자: {r.userId}</p>
+                <p className="text-yellow-500 font-bold">
+                  별점: {r.clickedStarNum}
+                </p>
+              </div>
+              <p className="text-white text-lg leading-relaxed">{r.comment}</p>
+              <div className="flex gap-4 justify-end mt-4">
+                <button
+                  onClick={() => deleteReview(i)}
+                  className="text-sm text-zinc-500 hover:text-white"
+                >
+                  삭제
+                </button>
+                <button
+                  onClick={() => editReview(i)}
+                  className="text-sm text-zinc-500 hover:text-white"
+                >
+                  수정
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 모달 (전체 div 안쪽 맨 하단에 배치) */}
       {isModalOpen && (
         <ReviewModal
           reviewOpen={() => setIsModalOpen(false)}
@@ -223,13 +235,10 @@ function MovieDetail() {
           userId={(() => {
             const userData = localStorage.getItem("user");
             if (!userData) return "익명";
-
             const parsed = JSON.parse(userData);
-
             const user = Array.isArray(parsed)
               ? parsed[parsed.length - 1]
               : parsed;
-
             return user?.userID || "익명";
           })()}
         />
