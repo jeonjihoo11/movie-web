@@ -49,6 +49,11 @@
       "userID": "강아지",
       "pw": "고양이",
       "id": "GZEtkBha6zY"
+    },
+    {
+      "userID": "강아지",
+      "pw": "고양이",
+      "id": "-H33DhYiC-g"
     }
   ],
   "favorites": [
@@ -139,6 +144,13 @@
       "title": "아앙: 더 라스트 에어벤더",
       "poster_path": "/29Jdsak3SrwGds5k1t43kH6Khed.jpg",
       "id": "z-FhZB-RqLU"
+    },
+    {
+      "userId": "GZEtkBha6zY",
+      "movieId": 1226863,
+      "title": "슈퍼 마리오 갤럭시",
+      "poster_path": "/knaXOBDBecVBWZVup3zXaOoy23v.jpg",
+      "id": "I1E-VS0KYPQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
