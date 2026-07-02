@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import {auth, googleProvider} from "../firebase"
+import {signInWithPopup} from "firebase/auth";
 function SignUp() {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -8,7 +10,37 @@ function SignUp() {
 
   const navigate = useNavigate();
 
+
+  const handleGoogleSignUp = async () => {
+    try {
+      // 1. 구글 로그인 진행 (인증)
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // 2. [체크] 이미 가입된 유저인가?
+      const res = await fetch("http://localhost:4000/users");
+      const users = await res.json();
+      const isAlreadySignedUp = users.some((u) => u.userID === user.email);
+alert(`${user.displayName}님, 가입을 축하합니다!`);
+        navigate("/");
+      // 3. [분기처리] 
+      if (isAlreadySignedUp) {
+        // 이미 있으면 그냥 로그인 성공 처리
+        alert(`${user.displayName}님, 다시 오신 걸 환영합니다!`);
+        navigate("/");
+      } else {
+        // 처음이면 DB에 저장하고 로그인 성공 처리
+        await saveUserToDB(user.email, "social_login");
+        alert(`${user.displayName}님, 가입을 축하합니다!`);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("에러 발생", error);
+    }
+  };
+
   const handleSignUp = async (e) => {
+    console.log("버튼 클릭됨")
     e.preventDefault();
 
     try {
@@ -78,6 +110,9 @@ function SignUp() {
           >
             가입하기{" "}
           </button>
+          <button type="button"
+          onClick={ handleGoogleSignUp}
+          >구글로 회원가입하기</button>
         </form>
       </div>
 
