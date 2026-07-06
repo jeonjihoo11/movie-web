@@ -1,7 +1,6 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import SignUp from "./pages/SignUp.jsx";
 import { BASE_URL, options } from "./component/API";
-
 import Layout from "./component/LayOut.jsx";
 import MovieCard from "./MovieCard.jsx";
 import { useEffect, useState } from "react";
@@ -9,18 +8,34 @@ import SearchPage from "./component/SearchPage.jsx";
 import MovieDetail from "./MovieDetail.jsx";
 import LogIn from "./pages/Login.jsx";
 import About from "./component/About.jsx";
+
 function MovieList() {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1); // 페이지 상태 추가
 
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
   };
 
+  // 초기 데이터 및 페이지 변경 시 데이터 로드
   useEffect(() => {
-    fetch(`${BASE_URL}/movie/popular?language=ko-KR`, options)
+    fetch(`${BASE_URL}/movie/popular?language=ko-KR&page=${page}`, options)
       .then((res) => res.json())
-      .then((data) => setMovies(data.results.filter((movie) => !movie.adult)));
+      .then((data) => {
+        setMovies((prev) => [...prev, ...data.results.filter((movie) => !movie.adult)]);
+      });
+  }, [page]);
+
+  // 무한스크롤 스크롤 감지 로직
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+        setPage((prev) => prev + 1);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (movies.length === 0)
@@ -60,11 +75,11 @@ function MovieList() {
         </div>
       </section>
 
-      {/*  (4개씩 나열) */}
+      {/* 인기 영화 리스트 */}
       <section className="px-10 py-16">
         <h2 className="text-2xl font-bold text-white mb-8">인기 영화</h2>
 
-        {/*  4개씩 정렬 */}
+        {/* 4개씩 정렬 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {movies.map((movie) => (
             <MovieCard
@@ -78,16 +93,14 @@ function MovieList() {
     </div>
   );
 }
+
 export default function App() {
   return (
     <Routes>
-      {/* 레이아웃 영향을 받는 페이지들 */}
       <Route element={<Layout />}>
         <Route path="/" element={<MovieList />} />
         <Route path="/details/:id" element={<MovieDetail />} />
         <Route path="/search" element={<SearchPage />} />
-
-        {/* 레이아웃 밖으로 독립시킨 회원가입 페이지! */}
         <Route path="/singup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/about" element={<About />} />
