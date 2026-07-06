@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
-import SignUp from "./pages/SignUp.jsx";
+
 import { BASE_URL, options } from "./component/API";
 import Layout from "./component/LayOut.jsx";
 import MovieCard from "./MovieCard.jsx";
