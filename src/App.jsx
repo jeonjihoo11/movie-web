@@ -8,6 +8,7 @@ import SearchPage from "./component/SearchPage.jsx";
 import MovieDetail from "./MovieDetail.jsx";
 import SignUp from "./pages/SignUpNew.jsx";
 import About from "./component/About.jsx";
+import LogIn from "./pages/LogIn";
 
 function MovieList() {
   const navigate = useNavigate();
@@ -20,24 +21,39 @@ function MovieList() {
 
   // 초기 데이터 및 페이지 변경 시 데이터 로드
   useEffect(() => {
-    fetch(`${BASE_URL}/movie/popular?language=ko-KR&page=${page}`, options)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies((prev) => [...prev, ...data.results.filter((movie) => !movie.adult)]);
+  fetch(`${BASE_URL}/movie/popular?language=ko-KR&page=${page}`, options)
+    .then((res) => res.json())
+    .then((data) => {
+      setMovies((prev) => {
+        // 성인 영화 제외
+        const filtered = data.results.filter((movie) => !movie.adult);
+
+        // 기존 영화 + 새 영화 합치기
+        const merged = [...prev, ...filtered];
+
+        // id 기준으로 중복 제거
+        const uniqueMovies = merged.filter(
+          (movie, index, self) =>
+            index === self.findIndex((m) => m.id === movie.id)
+        );
+
+        return uniqueMovies;
       });
-  }, [page]);
+    });
+}, [page]);
 
   // 무한스크롤 스크롤 감지 로직
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-        setPage((prev) => prev + 1);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+ useEffect(() => {
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
   if (movies.length === 0)
     return (
       <div className="bg-black min-h-screen text-white p-10">
@@ -101,7 +117,7 @@ export default function App() {
         <Route path="/" element={<MovieList />} />
         <Route path="/details/:id" element={<MovieDetail />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/singup" element={<SignUp />} />
+      <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/about" element={<About />} />
       </Route>

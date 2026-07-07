@@ -156,6 +156,13 @@
       "title": "슈퍼 마리오 갤럭시",
       "poster_path": "/knaXOBDBecVBWZVup3zXaOoy23v.jpg",
       "id": "I1E-VS0KYPQ"
+    },
+    {
+      "userId": "WhyMTidrcd8",
+      "movieId": 1339713,
+      "title": "옵세션",
+      "poster_path": "/bRwnj8WEKBCvmfeUNOukJPwB43K.jpg",
+      "id": "UINWgsEaNAg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
