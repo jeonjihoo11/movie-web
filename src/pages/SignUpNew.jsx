@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
-import {auth, googleProvider} from "../firebase"
-import {signInWithPopup} from "firebase/auth";
+import {auth, googleProvider} from "../Firebase.js"
+import { signInWithPopup } from "firebase/auth";
 function SignUp() {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
